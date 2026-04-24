@@ -1,0 +1,1 @@
+"""Gerencia a sessão do usuário (quem está logado)."""

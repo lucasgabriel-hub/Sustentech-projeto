@@ -1,0 +1,1 @@
+"""Controla menus e navegação. login, cadastro, sair"""

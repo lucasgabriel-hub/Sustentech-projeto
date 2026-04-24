@@ -1,0 +1,1 @@
+"""Responsável pela conexão com o SQLite."""
