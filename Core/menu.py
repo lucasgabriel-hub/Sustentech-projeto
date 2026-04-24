@@ -1,9 +1,9 @@
 """Controla menus e navegação. login, cadastro, sair"""
-from Pages.auth import tela_auth
-from Pages.Dicas import tela_dicas
-from Pages.metas import tela_metas
-from Pages.recomendacoes import tela_recomendacoes
-from Pages.usuarios import tela_usuarios
+from pages.auth import tela_auth
+from pages.Dicas import tela_dicas
+from pages.metas import tela_metas
+from pages.recomendacoes import tela_recomendacoes
+from pages.usuarios import tela_usuarios
 
 def menu():
     """Menu principal do programa, onde o usuário pode escolher entre as opções disponíveis."""
