@@ -1,0 +1,1 @@
+"""Mostrar perguntas, Receber respostas e Calcular pontuação"""
