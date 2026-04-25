@@ -1,12 +1,14 @@
 """Controla menus e navegação. login, cadastro, sair"""
-from pages.auth import tela_auth
+
+
+from pages.auth import menu_login_cadastro
 from pages.Dicas import tela_dicas
 from pages.metas import tela_metas
 from pages.recomendacoes import tela_recomendacoes
 from pages.usuarios import tela_usuarios
 
-def menu():
-    """Menu principal do programa, onde o usuário pode escolher entre as opções disponíveis."""
+def menu_principal():
+    
     while True:
         print("\nMenu Principal:")
         print("1. Dicas")
@@ -15,22 +17,22 @@ def menu():
         print("4. Usuários")
         print("5. Sair")
 
-        choice = input("Digite um número correspondente à opção: ")
+        escolha = input("Digite um número correspondente à opção: ")
 
-        if choice == '1':
+        if escolha == '1':
             tela_dicas()
-        elif choice == '2':
+        elif escolha == '2':
             tela_metas()
-        elif choice == '3':
+        elif escolha == '3':
             tela_recomendacoes()
-        elif choice == '4':
+        elif escolha == '4':
             tela_usuarios()
-        elif choice == '5':
+        elif escolha == '5':
             print("Saindo do programa...")
             break
         else:
             print("Opção inválida. Por favor, escolha uma das opções acima.")
 
-if __name__ == "__main__":    tela_auth()
+if __name__ == "__main__":    menu_login_cadastro()
 menu()
 
