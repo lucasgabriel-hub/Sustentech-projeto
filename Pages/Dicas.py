@@ -1,4 +1,6 @@
 """Dicas sustentáveis e Conteúdo informativo"""
+from core.menu import menu_principal
+
 def tela_dicas():
     while True:
         print("\n=====Dicas Sustentáveis=====")
@@ -7,18 +9,18 @@ def tela_dicas():
         print('3: Reutilização e reaproveitamento')
         print('4: Descarte e consumo ')
         print("5. Voltar ao Menu Principal")
-        escolha = input("Digite um número correspondente à opção: ")
+        escolha = input("Digite um número correspondente às dicas que deseja ver: ")
 
         if escolha == '1':
             vida_util_tela()
         elif escolha == '2':
-            print("Dicas sobre manutenção e cuidados para prolongar a vida útil dos produtos.")
+            manutencao_cuidados()
         elif escolha == '3':
-            print("Dicas sobre reutilização e reaproveitamento de produtos.")
+            reutilizacao_reaproveitamento()
         elif escolha == '4':
-            print("Dicas sobre descarte correto e consumo consciente.")
+            descarte_consumo_consciente()
         elif escolha == '5':
-            print("Voltando ao Menu Principal...")
+            menu_principal()
             break
         else:
             print("Opção inválida. Por favor, escolha uma das opções acima.")
@@ -66,4 +68,37 @@ Função para exibir dicas sobre a vida útil de aparelhos eletrônicos, incluin
  caixas de som e fones de ouvido.
 """
 
-asa
+def manutencao_cuidados():
+    print("=========Dicas sobre manutenção e cuidados=========")
+    print("""
+Faça limpezas regulares para evitar acúmulo de poeira.
+Use carregadores originais ou certificados.
+Evite quedas e impactos.
+Não exponha aparelhos à água ou calor excessivo.
+Atualize softwares e antivírus para manter o funcionamento correto.""")
+
+"""
+Função para exibir dicas sobre manutenção e cuidados para prolongar a vida útil dos produtos,
+ incluindo limpezas regulares,
+"""
+def reutilizacao_reaproveitamento():
+    print("=========Dicas sobre reutilização e reaproveitamento=========")
+    print("""Transforme celulares antigos em câmeras de segurança ou despertadores.
+Use notebooks antigos para estudos básicos ou servidores simples.
+Aproveite peças (cabos, carregadores, HDs).
+Doe aparelhos que ainda funcionam.
+Reutilize caixas e embalagens para organização.""")
+    
+"""
+Função para exibir dicas sobre reutilização e reaproveitamento de produtos.
+"""
+def descarte_consumo_consciente():
+    print("=========Dicas sobre descarte e consumo consciente=========")
+    print("""Nunca jogue eletrônicos no lixo comum (contêm materiais tóxicos).
+Procure pontos de coleta de lixo eletrônico na sua cidade.
+Prefira marcas com compromisso ambiental.
+Evite comprar por impulso — só adquira o necessário.
+Dê preferência a produtos duráveis e com garantia maior.""")
+"""
+Função para exibir dicas sobre descarte e consumo consciente de produtos eletrônicos.
+"""
