@@ -7,15 +7,15 @@ def menu_login_cadastro():
         print("2. Cadastro")
         print("3. Sair")
 
-        escolha = input("Digite um número correspondente à opção: ")
+        menu_escolhido = input("Digite um número correspondente à opção: ")
 
-        if escolha == '1':
-            print("Tela de Login ")
+        if menu_escolhido == '1':
             
-        elif escolha == '2':
+            
+        elif menu_escolhido == '2':
             print("Tela de Cadastro ")
             
-        elif escolha == '3':
+        elif menu_escolhido == '3':
             print("Saindo do programa...")
             break
         else:
@@ -24,3 +24,26 @@ def menu_login_cadastro():
 """
 Controle de autenticação de usuários. Tela de login, cadastro e opção de sair do programa.
 """
+def login():
+    print("\n=====Login=====")
+    email = input("Digite seu email: ")
+    senha = input("Digite sua senha: ")
+
+    print("Login realizado com sucesso! Bem-vindo(a)!")
+
+"""
+falta criar a lógica para validar o login, como verificar se o email e senha correspondem a um usuário cadastrado.
+"""
+
+def cadastro():
+    print("\n=====Cadastro=====")
+    nome = input("Digite seu nome: ")
+    email = input("Digite seu email: ")
+    senha = input("Digite sua senha: ")
+
+    print("Cadastro realizado com sucesso! Agora você pode fazer login.")
+
+"""
+falta criar a lógica para validar o cadastro, como verificar se o email já está em uso
+ e armazenar os dados do usuário de forma segura.
+ """

@@ -17,17 +17,17 @@ def menu_principal():
         print("4. Usuários")
         print("5. Sair")
 
-        escolha = input("Digite um número correspondente à opção: ")
+        funçao_escolhida = input("Digite um número correspondente à opção: ")
 
-        if escolha == '1':
+        if funçao_escolhida == '1':
             tela_dicas()
-        elif escolha == '2':
+        elif funçao_escolhida == '2':
             tela_metas()
-        elif escolha == '3':
+        elif funçao_escolhida == '3':
             tela_recomendacoes()
-        elif escolha == '4':
+        elif funçao_escolhida == '4':
             tela_usuarios()
-        elif escolha == '5':
+        elif funçao_escolhida == '5':
             print("Saindo do programa...")
             break
         else:
@@ -35,4 +35,5 @@ def menu_principal():
 
 if __name__ == "__main__":    menu_login_cadastro()
 menu()
+
 
