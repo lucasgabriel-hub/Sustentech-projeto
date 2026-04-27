@@ -9,8 +9,6 @@ def conectar_banco():
 def criar_tabela_usuarios(conexao):
     cursor = conexao.cursor()
 
-    print("Criando tabela de usuários...")
-
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS usuarios (
             id INTEGER PRIMARY KEY AUTOINCREMENT,

@@ -7,7 +7,7 @@ def tela_dicas():
         print('2: Manutenção e cuidados')
         print('3: Reutilização e reaproveitamento')
         print('4: Descarte e consumo ')
-        print("5. Voltar ao Menu Principal")
+        print("5. voltar ao menu principal")
         dica_escolhida = input("Digite um número correspondente às dicas que deseja ver: ")
 
         if dica_escolhida == '1':
@@ -19,7 +19,7 @@ def tela_dicas():
         elif dica_escolhida == '4':
             descarte_consumo_consciente()
         elif dica_escolhida == '5':
-            menu_principal()
+            print("Voltando ao menu principal...")
             break
         else:
             print("Opção inválida. Por favor, escolha uma das opções acima.")

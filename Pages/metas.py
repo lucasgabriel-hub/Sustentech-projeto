@@ -1,8 +1,15 @@
 """Criar meta sustentável e Acompanhar progresso"""
 
+"""
+Tela de metas sustentáveis, com opções para metas diárias, semanais e mensais, 
+além de permitir concluir metas e acompanhar o progresso.
+"""
+
 def tela_metas():
    while True:
-        print("\n=====Sistema de Metas Sustentáveis=====")
+        print("="*40)
+        print("Metas Sustentáveis")
+        print("="*40)
         print('1 Diária')
         print('2 Semanal')
         print('3 Mensal')
@@ -11,43 +18,105 @@ def tela_metas():
         meta_escolhida = input("escolha a aba de metas que deseja entrar: ")
 
         if meta_escolhida == '1':
-            meta_diaria()
+            menu_tipo("diária")
         
         elif meta_escolhida == '2':
-            meta_semanal()
+            menu_tipo("semanal")
     
         elif meta_escolhida == '3':
-            meta_mensal()
+            menu_tipo("mensal")
 
         elif meta_escolhida == '4':
-            menu_principal()
+            print("Voltando ao menu principal...")
+            break
 
         else:
             print("Opção inválida. Por favor, escolha uma das opções acima.")
 
 """
-função que repete as metas para cada categoria (diária, semanal e mensal)
- e permite que o usuário escolha qual categoria deseja acessar.
+função para concluir uma meta, alterando seu status para "concluída".
+"""
+
+def menu_tipo(tipo):
+    while True:
+        print("-"*35)
+        print(f" METAS {tipo.upper()}")
+        print("-"*35)
+        print("1 Ver metas")
+        print("2 Concluir uma meta")
+        print("0 Voltar")
+        print("-"*35)
+
+        opcao = input("Escolha se deseja ver as metas ou concluir uma meta: ")
+
+        if opcao == "1":
+            mostrar_metas(tipo)
+        elif opcao == "2":
+            concluir_meta(tipo)
+        elif opcao == "0":
+            break
+        else:
+            print("❌ Opção inválida!")
+
+"""
+função para mostrar as metas de um tipo específico, exibindo a descrição e o status de cada meta.
+"""
+
+def mostrar_metas(tipo):
+    lista = metas[tipo]
+
+    print("\n" + "="*40)
+    print(f"📊 METAS {tipo.upper()}")
+    print("="*40)
+
+    for i, meta in enumerate(lista, start=1):
+        status = "✅" if meta["status"] == "concluída" else "⏳"
+        print(f"{i}. {meta['descricao']}")
+        print(f"   Status: {status} {meta['status']}")
+        print("-"*40)
+
+    return lista
+
+"""
+função para concluir uma meta, alterando seu status para "concluída".
+"""
+
+def concluir_meta(tipo):
+    lista = mostrar_metas(tipo)
+
+    try:
+        opcao = int(input(" Digite o número da meta concluída: ")) - 1
+
+        if lista[opcao]["status"] == "concluída":
+            print("⚠️ Essa meta já foi concluída!")
+        else:
+            lista[opcao]["status"] = "concluída"
+            print("🎉 Parabéns! Meta concluída!")
+
+    except (IndexError, ValueError):
+        print("❌ Opção inválida!")
+
+"""
+lista de metas sustentáveis, divididas em categorias diária, semanal e mensal.
+Cada meta tem uma descrição e um status (pendente ou concluída).
 """
             
-def meta_diaria():
-    print('1: Desligar luzes ao sair dos ambientes')
-    print('2: Reduzir tempo de banho (até 10 minutos)')
-    print('3: Evitar deixar aparelhos em standby')
-        
-def meta_semanal():
-    print('1: Separar lixo reciclável corretamente')
-    print('2: Evitar usar plástico descartável durante a semana')
-    print('3: Usar transporte alternativo (andar, bicicleta ou transporte público pelo menos 1x)')
-def meta_mensal():
-    print('1: Reduzir o consumo de energia (comparar com o mês anterior)')
-    print('2: Doar ou reutilizar objetos/eletrônicos que não usa mais')
-    print('3: Aprender e aplicar uma nova prática sustentável')
-
-"""
-funções para criar metas, acompanhar o progresso e registrar as metas cumpridas ou em andamento.
-"""
-
-"""
-Criar um registro de metas que já foram cumpridas e as que ainda estão em andamento.
-"""
+metas = {
+    "diaria": [
+        {"descricao": "Desligar luzes ao sair dos ambientes", "status": "pendente"},
+        {"descricao": "Reduzir tempo de banho (até 10 minutos)", "status": "pendente"},
+        {"descricao": "Evitar deixar aparelhos em standby", "status": "pendente"}
+    ],
+    
+    "semanal": [
+        {"descricao": "Separar lixo reciclável corretamente", "status": "pendente"},
+        {"descricao": "Evitar usar plástico descartável durante a semana", "status": "pendente"},
+        {"descricao": "Usar transporte alternativo pelo menos 1x", "status": "pendente"}
+    ],
+    
+    "mensal": [
+        {"descricao": "Reduzir o consumo de energia", "status": "pendente"},
+        {"descricao": "Doar ou reutilizar objetos/eletrônicos", "status": "pendente"},
+        {"descricao": "Aprender uma nova prática sustentável", "status": "pendente"}
+    ]
+}

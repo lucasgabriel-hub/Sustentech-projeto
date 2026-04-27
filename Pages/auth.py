@@ -55,13 +55,11 @@ def cadastro():
 
     if not email.endswith("@gmail.com"):
         print("❌ Só é permitido email que termine com @gmail.com")
-    return
+        return
 
     conexao = conectar_banco()
 
     cadastrar_usuario(conexao, nome, email, senha)
-
-    print("Cadastro realizado com sucesso! Agora você pode fazer login.")
 
 """
 falta criar a lógica para validar o cadastro, como verificar se o email já está em uso
