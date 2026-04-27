@@ -1,5 +1,4 @@
 """Criar meta sustentável e Acompanhar progresso"""
-from core.menu import menu_principal
 
 def tela_metas():
    while True:

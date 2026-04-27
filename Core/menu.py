@@ -1,7 +1,5 @@
 """Controla menus e navegação. login, cadastro, sair"""
 
-
-from pages.auth import menu_login_cadastro
 from pages.Dicas import tela_dicas
 from pages.metas import tela_metas
 from pages.recomendacoes import tela_recomendacoes
@@ -33,6 +31,5 @@ def menu_principal():
         else:
             print("Opção inválida. Por favor, escolha uma das opções acima.")
 
-if __name__ == "__main__":    menu_login_cadastro()
 
 

@@ -1,16 +1,16 @@
 """Responsável pela conexão com o SQLite."""
 import sqlite3
+from configurations.config import DB_PATH
 
 def conectar_banco():
-    try:
-        conexao = sqlite3.connect('sustentech.db')
-        return conexao
-    except sqlite3.Error as e:
-        print(f"Erro ao conectar ao banco de dados: {e}")
-        return None
+    conexao = sqlite3.connect(DB_PATH)
+    return conexao
 
 def criar_tabela_usuarios(conexao):
     cursor = conexao.cursor()
+
+    print("Criando tabela de usuários...")
+
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS usuarios (
             id INTEGER PRIMARY KEY AUTOINCREMENT,

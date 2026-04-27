@@ -1,8 +1,6 @@
 """Autenticação de usuários"""
 
-from database.connection import cadastrar_usuario, conectar_banco
-from database.connection import verificar_usuario
-from core.menu import menu_principal
+from database.connection import cadastrar_usuario, conectar_banco, verificar_usuario
 
 def menu_login_cadastro():
     while True:
@@ -37,7 +35,8 @@ def login():
 
     usuario = verificar_usuario(conexao, email, senha)
     if usuario:
-        menu_principal(usuario)
+        print(f"Bem-vindo!")
+        return usuario
     else:
         print("Email ou senha incorretos. Tente novamente.")
 

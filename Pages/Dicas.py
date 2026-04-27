@@ -1,5 +1,4 @@
 """Dicas sustentáveis e Conteúdo informativo"""
-from core.menu import menu_principal
 
 def tela_dicas():
     while True:
