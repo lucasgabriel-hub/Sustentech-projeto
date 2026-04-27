@@ -89,4 +89,15 @@ def registrar_meta(conexao, usuario_id, categoria, descricao, status):
     conexao.commit()
     cursor.close()
 
+"""
+tabela que armazena as informações sobre metas separando em: diários, semanais e mensais,
+"""
+def obter_metas_por_usuario(conexao, usuario_id):
+    cursor = conexao.cursor()
+    cursor.execute('''
+        SELECT categoria, descricao, status FROM metas WHERE usuario_id = ?
+    ''', (usuario_id,))
+    metas = cursor.fetchall()
+    cursor.close()
+    return metas
 
