@@ -25,6 +25,11 @@ def tela_metas():
 
         else:
             print("Opção inválida. Por favor, escolha uma das opções acima.")
+
+"""
+função que repete as metas para cada categoria (diária, semanal e mensal)
+ e permite que o usuário escolha qual categoria deseja acessar.
+"""
             
 def meta_diaria():
     print('1: Desligar luzes ao sair dos ambientes')
@@ -39,4 +44,11 @@ def meta_mensal():
     print('1: Reduzir o consumo de energia (comparar com o mês anterior)')
     print('2: Doar ou reutilizar objetos/eletrônicos que não usa mais')
     print('3: Aprender e aplicar uma nova prática sustentável')
-        
+
+"""
+funções para criar metas, acompanhar o progresso e registrar as metas cumpridas ou em andamento.
+"""
+
+"""
+Criar um registro de metas que já foram cumpridas e as que ainda estão em andamento.
+"""

@@ -34,6 +34,5 @@ def menu_principal():
             print("Opção inválida. Por favor, escolha uma das opções acima.")
 
 if __name__ == "__main__":    menu_login_cadastro()
-menu()
 
 
