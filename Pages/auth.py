@@ -1,5 +1,9 @@
 """Autenticação de usuários"""
 
+from database.connection import cadastrar_usuario, conectar_banco
+from database.connection import verificar_usuario
+from core.menu import menu_principal
+
 def menu_login_cadastro():
     while True:
         print("\n=====Cadastro e Login=====")
@@ -10,14 +14,14 @@ def menu_login_cadastro():
         menu_escolhido = input("Digite um número correspondente à opção: ")
 
         if menu_escolhido == '1':
-            
+            login()
             
         elif menu_escolhido == '2':
-            print("Tela de Cadastro ")
+            cadastro()
             
         elif menu_escolhido == '3':
-            print("Saindo do programa...")
-            break
+            exit()
+            
         else:
             print("Opção inválida. Por favor, escolha uma das opções acima.")
 
@@ -29,7 +33,13 @@ def login():
     email = input("Digite seu email: ")
     senha = input("Digite sua senha: ")
 
-    print("Login realizado com sucesso! Bem-vindo(a)!")
+    conexao = conectar_banco()
+
+    usuario = verificar_usuario(conexao, email, senha)
+    if usuario:
+        menu_principal(usuario)
+    else:
+        print("Email ou senha incorretos. Tente novamente.")
 
 """
 falta criar a lógica para validar o login, como verificar se o email e senha correspondem a um usuário cadastrado.
@@ -40,6 +50,10 @@ def cadastro():
     nome = input("Digite seu nome: ")
     email = input("Digite seu email: ")
     senha = input("Digite sua senha: ")
+
+    conexao = conectar_banco()
+
+    cadastrar_usuario(conexao, nome, email, senha)
 
     print("Cadastro realizado com sucesso! Agora você pode fazer login.")
 
