@@ -16,7 +16,6 @@ Função para iniciar o banco de dados, criando a tabela de usuários caso ela a
 """
 
 def iniciar_banco():
-    print("🚀 Iniciando banco...")
 
     conexao = conectar_banco()
 
@@ -31,7 +30,7 @@ função principal do programa, responsável por iniciar o banco de dados e cham
 
 def main():
     iniciar_banco()
-    
+
     usuario = menu_login_cadastro()
     if usuario:
         menu_principal(usuario)

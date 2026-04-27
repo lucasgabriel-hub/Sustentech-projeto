@@ -15,7 +15,7 @@ def criar_tabela_usuarios(conexao):
         CREATE TABLE IF NOT EXISTS usuarios (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nome TEXT NOT NULL,
-            email TEXT NOT NULL UNIQUE,
+            email TEXT UNIQUE NOT NULL,
             senha TEXT NOT NULL
         )
     ''')

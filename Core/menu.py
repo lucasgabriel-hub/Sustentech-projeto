@@ -5,10 +5,11 @@ from pages.metas import tela_metas
 from pages.recomendacoes import tela_recomendacoes
 from pages.usuarios import tela_usuarios
 
-def menu_principal():
+def menu_principal(usuario):
     
     while True:
-        print("\nMenu Principal:")
+        print("\n=====Menu Principal=====")
+        print(f'Bem-vindo, {usuario[1]}!')  
         print("1. Dicas")
         print("2. Metas")
         print("3. Recomendações")

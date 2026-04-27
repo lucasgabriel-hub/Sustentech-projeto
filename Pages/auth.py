@@ -12,7 +12,9 @@ def menu_login_cadastro():
         menu_escolhido = input("Digite um número correspondente à opção: ")
 
         if menu_escolhido == '1':
-            login()
+            usuário = login()
+            if usuário:
+                return usuário
             
         elif menu_escolhido == '2':
             cadastro()
@@ -32,13 +34,14 @@ def login():
     senha = input("Digite sua senha: ")
 
     conexao = conectar_banco()
-
     usuario = verificar_usuario(conexao, email, senha)
+    conexao.close()
+
     if usuario:
-        print(f"Bem-vindo!")
         return usuario
     else:
         print("Email ou senha incorretos. Tente novamente.")
+        return None
 
 """
 falta criar a lógica para validar o login, como verificar se o email e senha correspondem a um usuário cadastrado.
@@ -49,6 +52,10 @@ def cadastro():
     nome = input("Digite seu nome: ")
     email = input("Digite seu email: ")
     senha = input("Digite sua senha: ")
+
+    if not email.endswith("@gmail.com"):
+        print("❌ Só é permitido email que termine com @gmail.com")
+    return
 
     conexao = conectar_banco()
 
