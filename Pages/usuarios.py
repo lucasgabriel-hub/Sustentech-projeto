@@ -3,6 +3,7 @@
 from services.user_services import atualizar_dados_pessoais
 from services.user_services import listar_usuarios
 from services.user_services import deletar_conta
+from utils.utilidades import limpar_tela
 
 def tela_usuarios(conexao, usuario_id):
     print("="*40)
@@ -17,17 +18,16 @@ def tela_usuarios(conexao, usuario_id):
 
     escolha_do_usuario = input('Escolha uma opção: ')
     if escolha_do_usuario == '1':
-        print('Opção de atualizar dados pessoais selecionada.')
-        # Aqui você pode adicionar a lógica para atualizar os dados pessoais do usuário
+        atualizar_dados_pessoais(conexao)
+        
     elif escolha_do_usuario == '2':
-        print('Opção de listar usuários cadastrados selecionada.')
-        # Aqui você pode adicionar a lógica para listar os usuários cadastrados
+        listar_usuarios(conexao)
+        
     elif escolha_do_usuario == '3':
-        print('Opção de deletar conta selecionada.')
-        # Aqui você pode adicionar a lógica para deletar a conta do usuário
+        deletar_conta(conexao, usuario_id)
+        
     elif escolha_do_usuario == '4':
-        print('Voltando ao menu principal...')
-        # Aqui você pode adicionar a lógica para voltar ao menu principal
+        input('pressione enter para voltar ao menu: ')
         
 
 

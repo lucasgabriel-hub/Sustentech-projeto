@@ -35,7 +35,7 @@ def menu_principal(conexao, usuario):
         elif feature_escolhida == '4':
             tela_recomendacoes()
         elif feature_escolhida == '5':
-            tela_usuarios()
+            tela_usuarios(conexao, usuario_id)
         elif feature_escolhida == '6':
             print('Saindo do programa...')
             conexao.close()

@@ -1,6 +1,7 @@
 """Mostrar perguntas, Receber respostas e Calcular pontuação"""
 
 from services.quiz_service import perguntas
+from utils.utilidades import limpar_tela
 
 def tela_quiz():
     perguntas
@@ -25,3 +26,4 @@ def tela_quiz():
 
     print(f'PARABÉNS!🎉 Sua pontuação final é: {pontuacao}')
     input('Pressione Enter para voltar ao menu principal:')
+    limpar_tela()

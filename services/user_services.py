@@ -1,5 +1,8 @@
 """Lida com usuários + banco de dados."""
 
+from pages.auth import menu_login_cadastro
+from utils.utilidades import limpar_tela
+
 def atualizar_dados_pessoais(conexao, usuario_id):
     print("="*40)
     print('Atualize seus dados pessoais:')
@@ -17,6 +20,9 @@ def atualizar_dados_pessoais(conexao, usuario_id):
 
     conexao.commit()
     print('Dados pessoais atualizados com sucesso!')
+    input('Pressione Enter para retornar ao menu de autenticação:')
+    limpar_tela()
+    return menu_login_cadastro
 
 def listar_usuarios(conexao):
     print("="*40)
@@ -29,16 +35,16 @@ def listar_usuarios(conexao):
 
     for usuario in usuarios:
         print(f'ID: {usuario[0]} | Nome: {usuario[1]} | Email: {usuario[2]}')
+    input('Pressione Enter para retornar ao menu:')
+    return limpar_tela()
 
 def deletar_conta(conexao, usuario_id):
     print("="*40)
     print('Deletar Conta')
     print("="*40)
-    confirmacao_para_deletar = input('Tem certeza que deseja deletar sua conta? ')
-    print('✅sim  ❌não')
-
+    confirmacao_para_deletar = input('Tem certeza que deseja deletar sua conta?\n ✅sim  ❌não ')
     
-    if confirmacao_para_deletar() == 'sim':
+    if confirmacao_para_deletar == 'sim':
         cursor = conexao.cursor()
         cursor.execute('DELETE FROM usuarios WHERE id = ?', (usuario_id,))
         conexao.commit()
@@ -46,4 +52,9 @@ def deletar_conta(conexao, usuario_id):
         return True  
     else:
         print('❌ Operação cancelada. Sua conta não foi deletada.')
-        return False  
+        input('Pressione Enter para retornar ao menu de autenticação:')
+        limpar_tela()
+        return menu_login_cadastro
+
+
+    

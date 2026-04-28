@@ -1,6 +1,6 @@
 """Dicas sustentáveis e Conteúdo informativo"""
 
-
+from utils.utilidades import limpar_tela
 def voltar_tela_dicas():
         input('Pressione Enter para voltar às dicas sustentáveis...')
 
@@ -76,6 +76,7 @@ Limpe regularmente (especialmente intra-auriculares).
 Guarde em estojos para evitar danos.
     """)
     voltar_tela_dicas()
+    limpar_tela()
 
 
 """
@@ -93,6 +94,7 @@ Não exponha aparelhos à água ou calor excessivo.
 Atualize softwares e antivírus para manter o funcionamento correto.
     """)
     voltar_tela_dicas()
+    limpar_tela()
 
 """
 Função para exibir dicas sobre reutilização e reaproveitamento de produtos.
@@ -107,6 +109,8 @@ Aproveite peças (cabos, carregadores, HDs).
 Doe aparelhos que ainda funcionam.
 Reutilize caixas e embalagens para organização.
     """)
+    voltar_tela_dicas()
+    limpar_tela()
 
 """
 Função para exibir dicas sobre descarte e consumo consciente de produtos eletrônicos.
@@ -122,3 +126,4 @@ Evite comprar por impulso — só adquira o necessário.
 Dê preferência a produtos duráveis e com garantia maior.
     """)
     voltar_tela_dicas()
+    limpar_tela()

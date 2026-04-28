@@ -1,5 +1,7 @@
 """Criar meta sustentável e Acompanhar progresso"""
 
+from utils.utilidades import limpar_tela
+
 """
 Tela de metas sustentáveis, com opções para metas diárias, semanais e mensais, 
 além de permitir concluir metas e acompanhar o progresso.
@@ -28,7 +30,7 @@ def tela_metas(conexao, usuario_id):
             menu_tipo(conexao, usuario_id, 'mensal')
 
         elif meta_escolhida == '4':
-            print('Voltando ao menu principal...')
+            limpar_tela()
             break
 
         else:
@@ -80,7 +82,7 @@ def mostrar_metas(conexao, usuario_id, tipo):
         print(f"   Status: {status} {meta[2]}")
         print("-"*40)
     input("Pressione Enter para voltar...")
-
+    limpar_tela()
     return metas
 
 """
@@ -92,7 +94,7 @@ def concluir_meta(conexao, usuario_id, tipo):
 
     try:
         opcao = int(input("Digite o número da meta que deseja concluir: "))
-        if opcao < 0 or opcao >= len(meta):
+        if opcao <= 0 or opcao >= len(meta):
             print("❌ Opção inválida!")
             return
         
@@ -105,6 +107,7 @@ def concluir_meta(conexao, usuario_id, tipo):
         conexao.commit()
             
         print("🎉 Parabéns! Meta concluída!")
+        limpar_tela()
 
     except (IndexError, ValueError):
         print("❌ Opção inválida!")

@@ -1,5 +1,6 @@
 """Autenticação de usuários"""
 
+from utils.utilidades import limpar_tela
 from database.connection import cadastrar_usuario, conectar_banco, verificar_usuario
 from database.connection import inserir_metas_padrao
 

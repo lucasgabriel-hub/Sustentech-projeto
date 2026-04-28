@@ -66,3 +66,4 @@ def tela_recomendacoes():
         print('- Procure reciclar eletrônicos')
 
     input('Pressione Enter para voltar ao menu:')
+    limpar_tela()
