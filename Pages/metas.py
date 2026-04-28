@@ -60,6 +60,7 @@ def menu_tipo(conexao, usuario_id, tipo):
             break
         else:
             print('❌ Opção inválida, escolha novamente!')
+    limpar_tela()
 
 """
 função para mostrar as metas de um tipo específico, exibindo a descrição e o status de cada meta.
@@ -81,9 +82,10 @@ def mostrar_metas(conexao, usuario_id, tipo):
         print(f"{i}. {meta[1]}")
         print(f"   Status: {status} {meta[2]}")
         print("-"*40)
-    input("Pressione Enter para voltar...")
+    
+    input('Pressione Enter para voltar:')
     limpar_tela()
-    return metas
+   
 
 """
 função para concluir uma meta, alterando seu status para "concluída".
@@ -94,22 +96,25 @@ def concluir_meta(conexao, usuario_id, tipo):
 
     try:
         opcao = int(input("Digite o número da meta que deseja concluir: "))
-        if opcao <= 0 or opcao >= len(meta):
+        if opcao <= 0 or opcao > len(meta):
             print("❌ Opção inválida!")
             return
         
         id_meta = meta[opcao - 1][0]
+        status_atual = meta[opcao - 1][2]  
 
-        cursor = conexao.cursor()
-        cursor.execute("UPDATE metas SET status = 'concluída' WHERE id = ? AND usuario_id = ?", 
-                       (id_meta, usuario_id))
-        
-        conexao.commit()
-            
-        print("🎉 Parabéns! Meta concluída!")
-        limpar_tela()
+        if status_atual == "concluída":
+            print("⚠️ Essa meta já foi concluída anteriormente!")
+        else:
+            cursor = conexao.cursor()
+            cursor.execute("UPDATE metas SET status = 'concluída' WHERE id = ? AND usuario_id = ?", 
+                           (id_meta, usuario_id))
+            conexao.commit()
+            print("🎉 Parabéns! Meta concluída!")
 
     except (IndexError, ValueError):
         print("❌ Opção inválida!")
-
-
+    
+    input("Pressione Enter para voltar:")  
+    limpar_tela()
+        
