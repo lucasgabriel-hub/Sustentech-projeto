@@ -7,7 +7,7 @@ from pages.usuarios import tela_usuarios
 from database.connection import conectar_banco
 from pages.quiz import tela_quiz
 
-def menu_principal(usuario):
+def menu_principal(conexao, usuario):
     usuario_id = usuario["id"]
     conexao = conectar_banco()
     

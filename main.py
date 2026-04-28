@@ -24,8 +24,7 @@ def iniciar_banco():
 
     criar_tabela_usuarios(conexao)
     criar_tabela_metas(conexao)
-
-    conexao.close()
+    return conexao
 
 
 """
@@ -33,11 +32,13 @@ função principal do programa, responsável por iniciar o banco de dados e cham
 """
 
 def main():
-    iniciar_banco()
+    conexao = iniciar_banco()
 
-    usuario = menu_login_cadastro()
+    usuario = menu_login_cadastro(conexao)
     if usuario:
-        menu_principal(usuario)
+        usuario_id = usuario["id"]
+        menu_principal(conexao, usuario)
+    conexao.close()
 
 if __name__ == "__main__":
     main()

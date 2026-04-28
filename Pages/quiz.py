@@ -7,7 +7,7 @@ def tela_quiz():
     pontuacao = 0
 
     print('=' * 40)
-    print("Quiz de Sustentável")
+    print('Quiz de Sustentável')
     print('=' * 40)
 
     for numero_da_pergunta, pergunta in enumerate(perguntas, start=1):
@@ -15,13 +15,13 @@ def tela_quiz():
         for opcao in pergunta['opcoes']:
             print(opcao)
 
-        resposta_usuario = input("Digite a letra da resposta correta: ").strip().upper()
+        resposta_usuario = input('Digite a letra da resposta correta: ').strip().upper()
 
         if resposta_usuario == pergunta['resposta']:
-            print("✅ Resposta correta!")
+            print('✅ Resposta correta!')
             pontuacao += 5
         else:
-            print(f"❌ Resposta incorreta! A resposta correta é: {pergunta['resposta']}")
+            print(f'❌ Resposta incorreta! A resposta correta é: {pergunta["resposta"]}')
 
     print(f'PARABÉNS!🎉 Sua pontuação final é: {pontuacao}')
-    input("Pressione Enter para voltar ao menu principal:")
+    input('Pressione Enter para voltar ao menu principal:')

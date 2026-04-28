@@ -3,7 +3,7 @@
 from database.connection import cadastrar_usuario, conectar_banco, verificar_usuario
 from database.connection import inserir_metas_padrao
 
-def menu_login_cadastro():
+def menu_login_cadastro(conexao):
     while True:
         print("="*40)
         print('​♻️ Bem-vindo ao Sustentech!​♻️')
@@ -15,12 +15,12 @@ def menu_login_cadastro():
         menu_escolhido = input('Digite um número correspondente à opção: ')
 
         if menu_escolhido == '1':
-            usuário = login()
+            usuário = login(conexao)
             if usuário:
                 return usuário
             
         elif menu_escolhido == '2':
-            cadastro()
+            cadastro(conexao)
             
         elif menu_escolhido == '3':
             exit()
@@ -31,7 +31,7 @@ def menu_login_cadastro():
 """
 Controle de autenticação de usuários. Tela de login, cadastro e opção de sair do programa.
 """
-def login():
+def login(conexao):
     print("="*40)
     print('Login')
     print("="*40)
@@ -39,9 +39,7 @@ def login():
     senha = input('Digite sua senha: ')
     print("-"*40)
 
-    conexao = conectar_banco()
     usuario = verificar_usuario(conexao, email, senha)
-    conexao.close()
 
     if usuario:
         return {"id": usuario[0],
@@ -55,7 +53,7 @@ def login():
 falta criar a lógica para validar o login, como verificar se o email e senha correspondem a um usuário cadastrado.
 """
 
-def cadastro():
+def cadastro(conexao):
     print("="*40)
     print('Cadastro')
     print("="*40)
