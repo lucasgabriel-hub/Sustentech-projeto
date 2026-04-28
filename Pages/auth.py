@@ -72,6 +72,5 @@ def cadastro(conexao):
     usuario_id = cadastrar_usuario(conexao, nome, email, senha)
     if usuario_id:
         inserir_metas_padrao(conexao, usuario_id)
-        print('cadastro realizado com sucesso!')
 
     conexao.close()
