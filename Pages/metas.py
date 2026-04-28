@@ -10,9 +10,9 @@ def tela_metas(conexao, usuario_id):
         print("="*40)
         print("Metas Sustentáveis")
         print("="*40)
-        print('1 Diária')
-        print('2 Semanal')
-        print('3 Mensal')
+        print('1 metas Diária')
+        print('2 metas Semanais')
+        print('3 metas Mensal')
         print('4 Voltar para o menu principal')
     
         meta_escolhida = input("escolha a aba de metas que deseja entrar: ")
@@ -31,7 +31,7 @@ def tela_metas(conexao, usuario_id):
             break
 
         else:
-            print("Opção inválida. Por favor, escolha uma das opções acima.")
+            print("❌ Opção inválida. Por favor, escolha uma das opções acima.")
 
 """
 função para concluir uma meta, alterando seu status para "concluída".
@@ -42,7 +42,7 @@ def menu_tipo(conexao, usuario_id, tipo):
         print("-"*35)
         print(f" METAS {tipo.upper()}")
         print("-"*35)
-        print("1 Ver metas")
+        print("1 Ver suas metas")
         print("2 Concluir uma meta")
         print("0 Voltar")
         print("-"*35)
