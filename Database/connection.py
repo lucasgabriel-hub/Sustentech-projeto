@@ -33,10 +33,10 @@ def cadastrar_usuario(conexao, nome, email, senha):
         ''', (nome, email, senha))
         usuario_id = cursor.lastrowid
         conexao.commit()
-        print("Usuário cadastrado com sucesso!")
+        print('✅Usuário cadastrado com sucesso!')
         return usuario_id
     except sqlite3.IntegrityError:
-        print("Erro: O email já está em uso.")
+        print('​❌Erro: O email já está em uso.')
         return None
     finally:
         cursor.close()
@@ -91,23 +91,23 @@ def inserir_metas_padrao(conexao, usuario_id):
     cursor = conexao.cursor()
 
     metas_padrao = [
-        ("diaria", "Desligar luzes ao sair dos ambientes"),
-        ("diaria", "Reduzir tempo de banho"),
-        ("diaria", "Evitar standby"),
+        ('diaria', 'Desligar luzes ao sair dos ambientes'),
+        ('diaria', 'Reduzir tempo de banho'),
+        ('diaria', 'Evitar standby'),
 
-        ("semanal", "Separar lixo reciclável"),
-        ("semanal", "Evitar plástico descartável"),
-        ("semanal", "Usar transporte alternativo"),
+        ('semanal', 'Separar lixo reciclável'),
+        ('semanal', 'Evitar plástico descartável'),
+        ('semanal', 'Usar transporte alternativo'),
 
-        ("mensal", "Reduzir consumo de energia"),
-        ("mensal", "Doar ou reutilizar objetos"),
-        ("mensal", "Aprender prática sustentável")
+        ('mensal', 'Reduzir consumo de energia'),
+        ('mensal', 'Doar ou reutilizar objetos'),
+        ('mensal', 'Aprender prática sustentável')
     ]
 
     for tipo, desc in metas_padrao:
         cursor.execute("""
         INSERT INTO metas (usuario_id, tipo, descricao, status)
         VALUES (?, ?, ?, ?)
-        """, (usuario_id, tipo, desc, "pendente"))
+        """, (usuario_id, tipo, desc, 'pendente'))
 
     conexao.commit()

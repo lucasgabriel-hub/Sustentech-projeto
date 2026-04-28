@@ -5,12 +5,14 @@ from database.connection import inserir_metas_padrao
 
 def menu_login_cadastro():
     while True:
-        print("\n=====Cadastro e Login=====")
-        print("1. Login")
-        print("2. Cadastro")
-        print("3. Sair")
+        print("="*40)
+        print('​♻️ Bem-vindo ao Sustentech!​♻️')
+        print("="*40)
+        print('1. Login')
+        print('2. Cadastro')
+        print('3. Sair')
 
-        menu_escolhido = input("Digite um número correspondente à opção: ")
+        menu_escolhido = input('Digite um número correspondente à opção: ')
 
         if menu_escolhido == '1':
             usuário = login()
@@ -24,15 +26,18 @@ def menu_login_cadastro():
             exit()
             
         else:
-            print("Opção inválida. Por favor, escolha uma das opções acima.")
+            print('​❌Opção inválida. Por favor, escolha uma das opções acima.')
 
 """
 Controle de autenticação de usuários. Tela de login, cadastro e opção de sair do programa.
 """
 def login():
-    print("\n=====Login=====")
-    email = input("Digite seu email: ")
-    senha = input("Digite sua senha: ")
+    print("="*40)
+    print('Login')
+    print("="*40)
+    email = input('Digite seu email: ')
+    senha = input('Digite sua senha: ')
+    print("-"*40)
 
     conexao = conectar_banco()
     usuario = verificar_usuario(conexao, email, senha)
@@ -43,7 +48,7 @@ def login():
                 "nome": usuario[1],
                 "email": usuario[2]}
     else:
-        print("Email ou senha incorretos. Tente novamente.")
+        print('​❌ Email ou senha incorretos. Tente novamente.')
         return None
 
 """
@@ -51,13 +56,16 @@ falta criar a lógica para validar o login, como verificar se o email e senha co
 """
 
 def cadastro():
-    print("\n=====Cadastro=====")
-    nome = input("Digite seu nome: ")
-    email = input("Digite seu email: ")
-    senha = input("Digite sua senha: ")
+    print("="*40)
+    print('Cadastro')
+    print("="*40)
+    nome = input('Digite seu nome: ')
+    email = input('Digite seu email: ')
+    senha = input('Digite sua senha: ')
+    print("-"*40)
 
-    if not email.endswith("@gmail.com"):
-        print("❌ Só é permitido email que termine com @gmail.com")
+    if not email.endswith('@gmail.com'):
+        print('❌ Só é permitido email que termine com @gmail.com')
         return
 
     conexao = conectar_banco()

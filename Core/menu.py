@@ -11,15 +11,18 @@ def menu_principal(usuario):
     conexao = conectar_banco()
     
     while True:
-        print("\n=====Menu Principal=====")
+        print("="*40)
+        print('Menu Principal')
+        print("="*40)
         print(f'Bem-vindo, {usuario["nome"]}!')  
-        print("1. Dicas")
-        print("2. Metas")
-        print("3. Recomendações")
-        print("4. Usuários")
-        print("5. Sair")
+        print('1. Dicas')
+        print('2. Metas')
+        print('3. Recomendações')
+        print('4. Usuários')
+        print('5. Sair')
+        print("-"*40)
 
-        feature_escolhida = input("Digite um número correspondente à opção: ")
+        feature_escolhida = input('Digite um número correspondente à opção: ')
 
         if feature_escolhida == '1':
             tela_dicas()
@@ -30,11 +33,11 @@ def menu_principal(usuario):
         elif feature_escolhida == '4':
             tela_usuarios()
         elif feature_escolhida == '5':
-            print("Saindo do programa...")
+            print('Saindo do programa...')
             conexao.close()
             break
         else:
-            print("Opção inválida. Por favor, escolha uma das opções acima.")
+            print('Opção inválida. Por favor, escolha uma das opções acima.')
 
 
 

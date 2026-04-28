@@ -14,24 +14,25 @@ def tela_metas(conexao, usuario_id):
         print('2 metas Semanais')
         print('3 metas Mensal')
         print('4 Voltar para o menu principal')
+        print("-"*40)
     
         meta_escolhida = input("escolha a aba de metas que deseja entrar: ")
 
         if meta_escolhida == '1':
-            menu_tipo(conexao, usuario_id, "diaria")
+            menu_tipo(conexao, usuario_id, 'diaria')
         
         elif meta_escolhida == '2':
-            menu_tipo(conexao, usuario_id, "semanal")
+            menu_tipo(conexao, usuario_id, 'semanal')
     
         elif meta_escolhida == '3':
-            menu_tipo(conexao, usuario_id, "mensal")
+            menu_tipo(conexao, usuario_id, 'mensal')
 
         elif meta_escolhida == '4':
-            print("Voltando ao menu principal...")
+            print('Voltando ao menu principal...')
             break
 
         else:
-            print("❌ Opção inválida. Por favor, escolha uma das opções acima.")
+            print('❌ Opção inválida. Por favor, escolha uma das opções acima.')
 
 """
 função para concluir uma meta, alterando seu status para "concluída".
@@ -42,21 +43,21 @@ def menu_tipo(conexao, usuario_id, tipo):
         print("-"*35)
         print(f" METAS {tipo.upper()}")
         print("-"*35)
-        print("1 Ver suas metas")
-        print("2 Concluir uma meta")
-        print("0 Voltar")
+        print('1 Ver suas metas')
+        print('2 Concluir uma meta')
+        print('0 Voltar')
         print("-"*35)
 
-        opcao = input("Escolha se deseja ver as metas ou concluir uma meta: ")
+        opcao = input('Escolha se deseja ver as metas ou concluir uma meta: ')
 
-        if opcao == "1":
+        if opcao == '1':
             mostrar_metas(conexao, usuario_id, tipo)
-        elif opcao == "2":
+        elif opcao == '2':
             concluir_meta(conexao, usuario_id, tipo)
-        elif opcao == "0":
+        elif opcao == '0':
             break
         else:
-            print("❌ Opção inválida, escolha novamente!")
+            print('❌ Opção inválida, escolha novamente!')
 
 """
 função para mostrar as metas de um tipo específico, exibindo a descrição e o status de cada meta.
