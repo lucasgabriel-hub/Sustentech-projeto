@@ -1,9 +1,12 @@
 """Iniciar o programa, Chamar o menu principal e Controlar o fluxo geral"""
-print("Iniciando o programa...")
+
 from database.connection import conectar_banco
 from database.connection import criar_tabela_usuarios
 from core.menu import menu_principal
 from pages.auth import menu_login_cadastro
+from database.connection import conectar_banco
+from database.connection import criar_tabela_metas
+from pages.metas import tela_metas
 import sys
 from pathlib import Path
 
@@ -20,6 +23,7 @@ def iniciar_banco():
     conexao = conectar_banco()
 
     criar_tabela_usuarios(conexao)
+    criar_tabela_metas(conexao)
 
     conexao.close()
 

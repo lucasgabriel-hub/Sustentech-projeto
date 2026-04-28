@@ -1,6 +1,7 @@
 """Autenticação de usuários"""
 
 from database.connection import cadastrar_usuario, conectar_banco, verificar_usuario
+from database.connection import inserir_metas_padrao
 
 def menu_login_cadastro():
     while True:
@@ -38,7 +39,9 @@ def login():
     conexao.close()
 
     if usuario:
-        return usuario
+        return {"id": usuario[0],
+                "nome": usuario[1],
+                "email": usuario[2]}
     else:
         print("Email ou senha incorretos. Tente novamente.")
         return None
@@ -59,9 +62,9 @@ def cadastro():
 
     conexao = conectar_banco()
 
-    cadastrar_usuario(conexao, nome, email, senha)
+    usuario_id = cadastrar_usuario(conexao, nome, email, senha)
+    if usuario_id:
+        inserir_metas_padrao(conexao, usuario_id)
+        print('cadastro realizado com sucesso!')
 
-"""
-falta criar a lógica para validar o cadastro, como verificar se o email já está em uso
- e armazenar os dados do usuário de forma segura.
- """
+    conexao.close()
