@@ -13,7 +13,7 @@ def tela_usuarios(conexao, usuario_id):
     print('1. Atualizar Dados Pessoais')
     print('2. Listar Usuários Cadastrados')
     print('3. deletar minha conta')
-    print('4. Voltar ao Menu Principal')
+    print('4. Voltar ao Menu autenticação')
     print("-"*40)
 
     escolha_do_usuario = input('Escolha uma opção: ')

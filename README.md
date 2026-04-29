@@ -21,6 +21,7 @@ Este projeto foi construído por:
 - *Sistema de Metas* O usuário pode se desafiar e melhorar o mundo realizando as tasks.
 - *Sistema de autenticação* para garantir que o usuário esteja protegido.
 
+
  Tecnologia Utilizada
 
 - *Python* (Lógica do sistema e interface dos quizzes)
