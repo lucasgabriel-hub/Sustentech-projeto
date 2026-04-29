@@ -1,6 +1,6 @@
 """Autenticação de usuários"""
 
-from utils.utilidades import limpar_tela
+from utils.utilidades import limpar_tela, tamanho   
 from database.connection import cadastrar_usuario, conectar_banco, verificar_usuario
 from database.connection import inserir_metas_padrao
 
@@ -66,7 +66,12 @@ def cadastro(conexao):
     print("="*40)
     print('Cadastro')
     print("="*40)
-    nome = input('Digite seu nome: ')
+    while True:
+        nome = input('Digite seu nome: ')
+        if tamanho(nome):
+            break
+        print("Tamanho do nome inválido. Tente Novamente.")
+
     email = input('Digite seu email: ')
     senha = input('Digite sua senha: ')
     print("-"*40)
