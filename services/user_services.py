@@ -22,7 +22,7 @@ def atualizar_dados_pessoais(conexao, usuario_id):
     print('Dados pessoais atualizados com sucesso!')
     input('Pressione Enter para retornar ao menu de autenticação:')
     limpar_tela()
-    return menu_login_cadastro
+    menu_login_cadastro(conexao)
 
 def listar_usuarios(conexao):
     print("="*40)
@@ -54,7 +54,7 @@ def deletar_conta(conexao, usuario_id):
         print('❌ Operação cancelada. Sua conta não foi deletada.')
         input('Pressione Enter para retornar ao menu de autenticação:')
         limpar_tela()
-        return menu_login_cadastro
+        menu_login_cadastro(conexao)
 
 
     

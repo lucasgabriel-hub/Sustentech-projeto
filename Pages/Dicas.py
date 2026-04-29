@@ -24,18 +24,24 @@ def tela_dicas():
         dica_escolhida = input('Digite um número correspondente às dicas que deseja ver: ')
 
         if dica_escolhida == '1':
+            limpar_tela()
             vida_util_tela()
         elif dica_escolhida == '2':
+            limpar_tela()
             manutencao_cuidados()
         elif dica_escolhida == '3':
+            limpar_tela()
             reutilizacao_reaproveitamento()
         elif dica_escolhida == '4':
+            limpar_tela()
             descarte_consumo_consciente()
         elif dica_escolhida == '5':
             print('​Voltando ao menu principal...')
             break
         else:
             print('​❌ Opção inválida. Por favor, escolha uma das opções acima.')
+            input('Pressione Enter para sair')
+            limpar_tela()
 
 """
 Função para exibir dicas sobre a vida útil de aparelhos eletrônicos, incluindo smartphones, TVs, computadores/notebooks,

@@ -21,20 +21,23 @@ def tela_metas(conexao, usuario_id):
         meta_escolhida = input("escolha a aba de metas que deseja entrar: ")
 
         if meta_escolhida == '1':
+            limpar_tela()
             menu_tipo(conexao, usuario_id, 'diaria')
         
         elif meta_escolhida == '2':
+            limpar_tela()
             menu_tipo(conexao, usuario_id, 'semanal')
     
         elif meta_escolhida == '3':
+            limpar_tela()
             menu_tipo(conexao, usuario_id, 'mensal')
 
         elif meta_escolhida == '4':
-            limpar_tela()
             break
 
         else:
             print('❌ Opção inválida. Por favor, escolha uma das opções acima.')
+            input('Pressione Enter para continuar:')
 
 """
 função para concluir uma meta, alterando seu status para "concluída".
@@ -53,14 +56,16 @@ def menu_tipo(conexao, usuario_id, tipo):
         opcao = input('Escolha se deseja ver as metas ou concluir uma meta: ')
 
         if opcao == '1':
+            limpar_tela()
             mostrar_metas(conexao, usuario_id, tipo)
         elif opcao == '2':
+            limpar_tela()
             concluir_meta(conexao, usuario_id, tipo)
         elif opcao == '0':
             break
         else:
             print('❌ Opção inválida, escolha novamente!')
-    limpar_tela()
+            limpar_tela()
 
 """
 função para mostrar as metas de um tipo específico, exibindo a descrição e o status de cada meta.
@@ -83,8 +88,7 @@ def mostrar_metas(conexao, usuario_id, tipo):
         print(f"   Status: {status} {meta[2]}")
         print("-"*40)
     
-    input('Pressione Enter para voltar:')
-    limpar_tela()
+    return metas
    
 
 """

@@ -18,17 +18,22 @@ def tela_usuarios(conexao, usuario_id):
 
     escolha_do_usuario = input('Escolha uma opção: ')
     if escolha_do_usuario == '1':
-        atualizar_dados_pessoais(conexao)
+        limpar_tela()
+        atualizar_dados_pessoais(conexao, usuario_id)
         
     elif escolha_do_usuario == '2':
+        limpar_tela()
         listar_usuarios(conexao)
         
     elif escolha_do_usuario == '3':
+        limpar_tela()
         deletar_conta(conexao, usuario_id)
         
     elif escolha_do_usuario == '4':
         input('pressione enter para voltar ao menu: ')
-        
+        limpar_tela()
+        return
+
 
 
 

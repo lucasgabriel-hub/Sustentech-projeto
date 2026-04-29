@@ -16,11 +16,13 @@ def menu_login_cadastro(conexao):
         menu_escolhido = input('Digite um número correspondente à opção: ')
 
         if menu_escolhido == '1':
+            limpar_tela()
             usuário = login(conexao)
             if usuário:
                 return usuário
             
         elif menu_escolhido == '2':
+            limpar_tela()
             cadastro(conexao)
             
         elif menu_escolhido == '3':
@@ -28,6 +30,9 @@ def menu_login_cadastro(conexao):
             
         else:
             print('​❌Opção inválida. Por favor, escolha uma das opções acima.')
+            limpar_tela()
+    
+    
 
 """
 Controle de autenticação de usuários. Tela de login, cadastro e opção de sair do programa.
@@ -43,11 +48,14 @@ def login(conexao):
     usuario = verificar_usuario(conexao, email, senha)
 
     if usuario:
+        limpar_tela()
         return {"id": usuario[0],
                 "nome": usuario[1],
                 "email": usuario[2]}
     else:
         print('​❌ Email ou senha incorretos. Tente novamente.')
+        input('Pressione Enter para continuar...')
+        limpar_tela()
         return None
 
 """
@@ -65,6 +73,8 @@ def cadastro(conexao):
 
     if not email.endswith('@gmail.com'):
         print('❌ Só é permitido email que termine com @gmail.com')
+        input('Pressione Enter para continuar...')  
+        limpar_tela()  
         return
 
     conexao = conectar_banco()
