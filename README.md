@@ -27,3 +27,7 @@ Este projeto foi construído por:
 - *Python* (Lógica do sistema e interface dos quizzes)
 
 *Projeto acadêmico desenvolvido para a Universidade Federal Rural de Pernambuco (UFRPE).*
+
+*Links dos projetos*
+[📄 Ver Fluxograma do Projeto](https://github.com/lucasgabriel-hub/Sustentech-projeto/blob/main/Fluxograma%20Sustentech.pdf)
+[📄 Ver Funcionalidades do Sistema](https://github.com/lucasgabriel-hub/Sustentech-projeto/blob/main/sustentech%20funcionalidades.pdf)
