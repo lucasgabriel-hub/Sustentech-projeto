@@ -12,7 +12,7 @@ Este projeto foi construído por:
 *   *Eloísa Fernanda*
 *   *Lucas Gabriel*
 
- Funcionalidades
+ Funcionalidades 1.0 realese
 
 - *Quizzes Sustentáveis:* Uma forma interativa de testar conhecimentos sobre reciclagem e práticas verdes.
 - *Prolongamento de Vida Útil:* Guia com dicas práticas para aumentar a longevidade de dispositivos eletrônicos.
@@ -20,6 +20,11 @@ Este projeto foi construído por:
 - *Sistema de Feedback* Traz para o usuário orientações com base no que é informado.
 - *Sistema de Metas* O usuário pode se desafiar e melhorar o mundo realizando as tasks.
 - *Sistema de autenticação* para garantir que o usuário esteja protegido.
+
+  Funcionalidades 2.0 realese
+  - *Loja com tokens* utilizar tokens para resgatar prémios.
+  - *Sistema de tokens* sistema que ganha tokens ao fazer metas.
+  - *mapa de descarte* pontos para descartar eletrônicos.
 
 
  Tecnologia Utilizada
