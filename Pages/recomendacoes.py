@@ -2,6 +2,14 @@
 
 from utils.utilidades import limpar_tela
 
+def calcular_pontuacao(resposta):
+    if resposta == '1':
+        return 2
+    elif resposta == '2':
+        return 1
+    else:
+        return 0
+
 def tela_recomendacoes():
 
     print("="*40)
@@ -17,10 +25,7 @@ def tela_recomendacoes():
     print('3 - Nunca')
     r1 = input('Resposta: ')
 
-    if r1 == "1":
-        score += 2
-    elif r1 == "2":
-        score += 1
+    score += calcular_pontuacao(r1)
 
     # Pergunta 2
     print('2. Com que frequência você troca de celular?')
@@ -29,10 +34,7 @@ def tela_recomendacoes():
     print('3 - Todo ano')
     r2 = input('Resposta: ')
 
-    if r2 == "1":
-        score += 2
-    elif r2 == "2":
-        score += 1
+    score += calcular_pontuacao(r2)
 
     # Pergunta 3
     print('\n3. Você reutiliza ou recicla eletrônicos antigos?')
@@ -41,10 +43,7 @@ def tela_recomendacoes():
     print('3 - Não')
     r3 = input('Resposta: ')
 
-    if r3 == "1":
-        score += 2
-    elif r3 == "2":
-        score += 1
+    score += calcular_pontuacao(r3)
 
     # Resultado
     limpar_tela()
