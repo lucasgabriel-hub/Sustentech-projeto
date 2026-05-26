@@ -1,6 +1,7 @@
 """Recomendar ações e Sugerir melhorias"""
 
 from utils.utilidades import limpar_tela
+from utils.utilidades import confirmarsaidarecomendacao
 
 def calcular_pontuacao(resposta):
     if resposta == '1':
@@ -11,7 +12,7 @@ def calcular_pontuacao(resposta):
         return 0
 
 def tela_recomendacoes():
-
+   while True:
     print("="*40)
     print('🌱 Recomendações Sustentáveis Personalizadas 🌱')
     print("="*40)
@@ -26,6 +27,10 @@ def tela_recomendacoes():
     r1 = input('Resposta: ')
 
     score += calcular_pontuacao(r1)
+    if confirmarsaidarecomendacao():
+        limpar_tela()
+        break
+    limpar_tela()
 
     # Pergunta 2
     print('2. Com que frequência você troca de celular?')
@@ -35,6 +40,10 @@ def tela_recomendacoes():
     r2 = input('Resposta: ')
 
     score += calcular_pontuacao(r2)
+    if confirmarsaidarecomendacao():
+        limpar_tela()
+        break
+    limpar_tela()
 
     # Pergunta 3
     print('\n3. Você reutiliza ou recicla eletrônicos antigos?')
@@ -44,6 +53,9 @@ def tela_recomendacoes():
     r3 = input('Resposta: ')
 
     score += calcular_pontuacao(r3)
+    if confirmarsaidarecomendacao():
+        limpar_tela()
+        break
 
     # Resultado
     limpar_tela()
