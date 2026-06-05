@@ -145,3 +145,72 @@ class MetaRepository:
         )
         self._conn.commit()
 
+class TokenRepository:
+    """
+    Isola todas as queries SQL relacionadas à tabela `tokens`.
+    """
+
+    def __init__(self, conexao) -> None:
+        self._conn = conexao
+
+    def criar_tabela(self) -> None:
+        self._conn.execute('''
+            CREATE TABLE IF NOT EXISTS tokens (
+                id          INTEGER PRIMARY KEY AUTOINCREMENT,
+                usuario_id  INTEGER NOT NULL,
+                meta_id     INTEGER NOT NULL,
+                quantidade  INTEGER NOT NULL,
+                descricao   TEXT    NOT NULL,
+                criado_em   TEXT    NOT NULL DEFAULT (datetime('now','localtime')),
+                FOREIGN KEY (usuario_id) REFERENCES usuarios (id),
+                FOREIGN KEY (meta_id)    REFERENCES metas    (id)
+            )
+        ''')
+        self._conn.commit()
+
+    """
+    funções de escrita: registrar recompensas de tokens
+    """
+
+    def registrar(self, usuario_id: int, meta_id: int,
+                  quantidade: int, descricao: str) -> None:
+        """Persiste uma recompensa de tokens para o usuário."""
+        self._conn.execute(
+            """INSERT INTO tokens (usuario_id, meta_id, quantidade, descricao)
+               VALUES (?, ?, ?, ?)""",
+            (usuario_id, meta_id, quantidade, descricao),
+        )
+        self._conn.commit()
+
+    """
+    funções de leitura: consultar saldo e histórico de transações
+    """
+
+    def saldo(self, usuario_id: int) -> int:
+        """
+        Retorna o total acumulado de tokens do usuário.
+        """
+        row = self._conn.execute(
+            "SELECT COALESCE(SUM(quantidade), 0) FROM tokens WHERE usuario_id=?",
+            (usuario_id,),
+        ).fetchone()
+        return int(row[0])
+
+    def historico(self, usuario_id: int, limite: int = 10):
+        """
+        Retorna os últimos `limite` registros de tokens, do mais recente.
+        """
+        from models.token import Token
+        rows = self._conn.execute(
+            """SELECT id, usuario_id, meta_id, quantidade, descricao, criado_em
+               FROM tokens
+               WHERE usuario_id=?
+               ORDER BY criado_em DESC
+               LIMIT ?""",
+            (usuario_id, limite),
+        ).fetchall()
+        return [
+            Token(id=r[0], usuario_id=r[1], meta_id=r[2],
+                  quantidade=r[3], descricao=r[4], criado_em=r[5])
+            for r in rows
+        ]
