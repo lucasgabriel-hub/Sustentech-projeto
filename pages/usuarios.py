@@ -1,8 +1,8 @@
 """Atualizar dados, Listar usuários e Perfil"""
 
-from services.user_services import atualizar_dados_pessoais
-from services.user_services import listar_usuarios
-from services.user_services import deletar_conta
+from services.usuario_service import atualizar_dados_pessoais
+from services.usuario_service import listar_usuarios
+from services.usuario_service import deletar_conta
 from utils.utilidades import limpar_tela
 
 def tela_usuarios(conexao, usuario_id):
