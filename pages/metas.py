@@ -1,124 +1,141 @@
-"""Criar meta sustentável e Acompanhar progresso"""
+"""Tela de metas sustentáveis."""
 
-from utils.utilidades import limpar_tela
+from models.meta import TipoMeta
+from services.meta_service import MetaService
+from services.token_service import TokenService
+from utils.utilidades import UI
 
-"""
-Tela de metas sustentáveis, com opções para metas diárias, semanais e mensais, 
-além de permitir concluir metas e acompanhar o progresso.
-"""
 
-def tela_metas(conexao, usuario_id):
-   while True:
-        print("="*40)
-        print("Metas Sustentáveis")
-        print("="*40)
-        print('1 metas Diária')
-        print('2 metas Semanais')
-        print('3 metas Mensal')
-        print('4 Voltar para o menu principal')
-        print("-"*40)
-    
-        meta_escolhida = input("escolha a aba de metas que deseja entrar: ")
+def tela_metas(conexao, usuario_id: int) -> None:
+    """
+    Exibe a tela de metas sustentáveis para o usuário.
+    """
+    service = MetaService(conexao)
+    token_service = TokenService(conexao)
 
-        if meta_escolhida == '1':
-            limpar_tela()
-            menu_tipo(conexao, usuario_id, 'diaria')
-        
-        elif meta_escolhida == '2':
-            limpar_tela()
-            menu_tipo(conexao, usuario_id, 'semanal')
-    
-        elif meta_escolhida == '3':
-            limpar_tela()
-            menu_tipo(conexao, usuario_id, 'mensal')
-
-        elif meta_escolhida == '4':
-            break
-
-        else:
-            print('❌ Opção inválida. Por favor, escolha uma das opções acima.')
-            input('Pressione Enter para continuar:')
-
-"""
-função para concluir uma meta, alterando seu status para "concluída".
-"""
-
-def menu_tipo(conexao, usuario_id, tipo):
     while True:
-        print("-"*35)
-        print(f" METAS {tipo.upper()}")
-        print("-"*35)
-        print('1 Ver suas metas')
-        print('2 Concluir uma meta')
-        print('0 Voltar')
-        print("-"*35)
+        saldo = token_service.saldo(usuario_id)
+        UI.cabecalho("Metas Sustentáveis")
+        print(f"  🪙 Seu saldo de tokens: {saldo}")
+        UI.separador()
+        print("1. Metas Diárias")
+        print("2. Metas Semanais")
+        print("3. Metas Mensais")
+        print("4. Histórico de tokens")
+        print("5. Voltar ao menu principal")
+        UI.separador()
 
-        opcao = input('Escolha se deseja ver as metas ou concluir uma meta: ')
+        opcao = input("Escolha uma aba: ").strip()
 
-        if opcao == '1':
-            limpar_tela()
-            mostrar_metas(conexao, usuario_id, tipo)
-        elif opcao == '2':
-            limpar_tela()
-            concluir_meta(conexao, usuario_id, tipo)
-        elif opcao == '0':
+        mapa = {"1": TipoMeta.DIARIA, "2": TipoMeta.SEMANAL, "3": TipoMeta.MENSAL}
+
+        if opcao in mapa:
+            UI.limpar()
+            _menu_tipo(service, usuario_id, mapa[opcao])
+        elif opcao == "4":
+            UI.limpar()
+            _exibir_historico_tokens(token_service, usuario_id)
+        elif opcao == "5":
+            UI.limpar()
             break
         else:
-            print('❌ Opção inválida, escolha novamente!')
-            limpar_tela()
+            UI.erro("Opção inválida.")
+            UI.pausar()
 
-"""
-função para mostrar as metas de um tipo específico, exibindo a descrição e o status de cada meta.
-"""
 
-def mostrar_metas(conexao, usuario_id, tipo):
-    cursor = conexao.cursor()
-    cursor.execute("SELECT id, descricao, status FROM metas WHERE usuario_id = ? AND tipo = ?", 
-                   (usuario_id, tipo))
-    metas = cursor.fetchall()
-    cursor.close()
+def _menu_tipo(service: MetaService, usuario_id: int, tipo: TipoMeta) -> None:
+    """
+    Exibe o menu de metas para um tipo específico (diária, semanal ou mensal).
+    """
+    while True:
+        UI.cabecalho(f"Metas {tipo.value.upper()}")
+        print("1. Ver metas")
+        print("2. Concluir uma meta")
+        print("0. Voltar")
+        UI.separador()
 
-    print("\n" + "="*40)
-    print(f"📊 METAS {tipo.upper()}")
-    print("="*40)
+        opcao = input("Escolha: ").strip()
 
+        if opcao == "1":
+            UI.limpar()
+            _exibir_metas(service, usuario_id, tipo)
+        elif opcao == "2":
+            UI.limpar()
+            _concluir_meta(service, usuario_id, tipo)
+        elif opcao == "0":
+            UI.limpar()
+            break
+        else:
+            UI.erro("Opção inválida.")
+            UI.limpar()
+
+
+def _exibir_metas(service: MetaService, usuario_id: int, tipo: TipoMeta) -> list:
+    """
+    Exibe as metas de um tipo específico e retorna a lista de metas.
+    """
+    from models.token import TOKENS_POR_TIPO
+    metas = service.listar(usuario_id, tipo)
+    tokens_val = TOKENS_POR_TIPO.get(tipo, 0)
+
+    UI.cabecalho(f"📊 Metas {tipo.value.upper()} — vale {tokens_val} 🪙 cada")
     for i, meta in enumerate(metas, start=1):
-        status = "✅" if meta[2] == "concluída" else "⏳"
-        print(f"{i}. {meta[1]}")
-        print(f"   Status: {status} {meta[2]}")
-        print("-"*40)
-    
+        print(f"{i}. {meta.descricao}")
+        print(f"   Status: {meta.icone_status()} {meta.status.value}")
+        UI.separador()
+
     return metas
-   
 
-"""
-função para concluir uma meta, alterando seu status para "concluída".
-"""
 
-def concluir_meta(conexao, usuario_id, tipo):
-    meta = mostrar_metas(conexao, usuario_id, tipo)
+def _concluir_meta(service: MetaService, usuario_id: int, tipo: TipoMeta) -> None:
+    """
+    Permite ao usuário concluir uma meta e ganhar tokens.
+    """
+    metas = _exibir_metas(service, usuario_id, tipo)
+    if not metas:
+        UI.aviso("Nenhuma meta encontrada.")
+        UI.pausar()
+        return
 
     try:
-        opcao = int(input("Digite o número da meta que deseja concluir: "))
-        if opcao <= 0 or opcao > len(meta):
-            print("❌ Opção inválida!")
+        opcao = int(input("Número da meta a concluir: "))
+        if not (1 <= opcao <= len(metas)):
+            UI.erro("Número inválido.")
             return
-        
-        id_meta = meta[opcao - 1][0]
-        status_atual = meta[opcao - 1][2]  
 
-        if status_atual == "concluída":
-            print("⚠️ Essa meta já foi concluída anteriormente!")
-        else:
-            cursor = conexao.cursor()
-            cursor.execute("UPDATE metas SET status = 'concluída' WHERE id = ? AND usuario_id = ?", 
-                           (id_meta, usuario_id))
-            conexao.commit()
-            print("🎉 Parabéns! Meta concluída!")
+        meta_escolhida = metas[opcao - 1]
+        sucesso, mensagem, tokens = service.concluir(meta_escolhida, usuario_id)
+        print(mensagem)
 
-    except (IndexError, ValueError):
-        print("❌ Opção inválida!")
-    
-    input("Pressione Enter para voltar:")  
-    limpar_tela()
-        
+        if sucesso and tokens > 0:
+            from services.token_service import TokenService
+            from database.connection import conectar_banco
+            # saldo já atualizado — mostramos inline
+            pass
+
+    except ValueError:
+        UI.erro("Entrada inválida. Digite um número.")
+
+    UI.pausar("Pressione Enter para voltar:")
+    UI.limpar()
+
+
+def _exibir_historico_tokens(token_service: TokenService, usuario_id: int) -> None:
+    """
+    Exibe o histórico de tokens ganhos pelo usuário.
+    """
+    saldo = token_service.saldo(usuario_id)
+    historico = token_service.historico(usuario_id, limite=10)
+
+    UI.cabecalho("🪙 Histórico de Tokens")
+    print(f"  Saldo total: {saldo} token(s)\n")
+
+    if not historico:
+        UI.aviso("Nenhum token ganho ainda. Conclua metas para acumular!")
+    else:
+        for entrada in historico:
+            print(f"  {entrada}")
+
+    UI.separador()
+    UI.pausar()
+    UI.limpar()
