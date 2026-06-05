@@ -1,91 +1,83 @@
-"""Autenticação de usuários"""
+"""Telas de autenticação: login, cadastro e boas-vindas."""
 
-from utils.utilidades import limpar_tela, tamanho   
-from database.connection import cadastrar_usuario, conectar_banco, verificar_usuario
-from database.connection import inserir_metas_padrao
+from models.usuario import Usuario, UsuarioCadastro
+from services.auth_service import AuthService
+from utils.utilidades import UI
 
-def menu_login_cadastro(conexao):
+
+def menu_login_cadastro(conexao) -> Usuario:
+    """
+    Loop principal de autenticação. Retorna o Usuario logado.
+    """
+    service = AuthService(conexao)
+
     while True:
-        print("="*40)
-        print('​♻️ Bem-vindo ao Sustentech!​♻️')
-        print("="*40)
-        print('1. Login')
-        print('2. Cadastro')
-        print('3. Sair')
+        UI.cabecalho("♻️  Bem-vindo ao Sustentech!  ♻️")
+        print("1. Login")
+        print("2. Cadastro")
+        print("3. Sair")
+        UI.separador()
 
-        menu_escolhido = input('Digite um número correspondente à opção: ')
+        opcao = input("Escolha uma opção: ").strip()
 
-        if menu_escolhido == '1':
-            limpar_tela()
-            usuário = login(conexao)
-            if usuário:
-                return usuário
-            
-        elif menu_escolhido == '2':
-            limpar_tela()
-            cadastro(conexao)
-            
-        elif menu_escolhido == '3':
+        if opcao == "1":
+            UI.limpar()
+            usuario = _tela_login(service)
+            if usuario:
+                return usuario
+
+        elif opcao == "2":
+            UI.limpar()
+            _tela_cadastro(service)
+
+        elif opcao == "3":
+            print("Até logo! 🌱")
             exit()
-            
+
         else:
-            print('​❌Opção inválida. Por favor, escolha uma das opções acima.')
-            limpar_tela()
-    
-    
+            UI.erro("Opção inválida. Tente novamente.")
+            UI.limpar()
 
-"""
-Controle de autenticação de usuários. Tela de login, cadastro e opção de sair do programa.
-"""
-def login(conexao):
-    print("="*40)
-    print('Login')
-    print("="*40)
-    email = input('Digite seu email: ')
-    senha = input('Digite sua senha: ')
-    print("-"*40)
 
-    usuario = verificar_usuario(conexao, email, senha)
+def _tela_login(service: AuthService):
+    """
+    Tela de login. Retorna o Usuario se o login for bem-sucedido, ou None caso contrário.
+    """
+    UI.cabecalho("Login")
+    email = input("Email: ").strip()
+    senha = input("Senha: ").strip()
+    UI.separador()
 
+    usuario = service.login(email, senha)
     if usuario:
-        limpar_tela()
-        return {"id": usuario[0],
-                "nome": usuario[1],
-                "email": usuario[2]}
+        UI.limpar()
+        return usuario
+
+    UI.erro("Email ou senha incorretos.")
+    UI.pausar()
+    UI.limpar()
+    return None
+
+
+def _tela_cadastro(service: AuthService) -> None:
+    """
+    Tela de cadastro. Não retorna nada, apenas exibe mensagens de sucesso ou erro.
+    """
+    UI.cabecalho("Cadastro")
+
+    nome  = input("Nome: ").strip()
+    email = input("Email: ").strip()
+    senha = input("Senha: ").strip()
+    UI.separador()
+
+    dto = UsuarioCadastro(nome=nome, email=email, senha=senha)
+    sucesso, erros, _ = service.cadastrar(dto)
+
+    if sucesso:
+        UI.sucesso("Cadastro realizado! Faça login para continuar.")
     else:
-        print('​❌ Email ou senha incorretos. Tente novamente.')
-        input('Pressione Enter para continuar...')
-        limpar_tela()
-        return None
+        for erro in erros:
+            UI.erro(erro)
 
-"""
-falta criar a lógica para validar o login, como verificar se o email e senha correspondem a um usuário cadastrado.
-"""
-
-def cadastro(conexao):
-    print("="*40)
-    print('Cadastro')
-    print("="*40)
-    while True:
-        nome = input('Digite seu nome: ')
-        if tamanho(nome):
-            break
-        print("Tamanho do nome inválido. Tente Novamente.")
-
-    email = input('Digite seu email: ')
-    senha = input('Digite sua senha: ')
-    print("-"*40)
-
-    if not email.endswith('@gmail.com'):
-        print('❌ Só é permitido email que termine com @gmail.com')
-        input('Pressione Enter para continuar...')  
-        limpar_tela()  
-        return
-
-    conexao = conectar_banco()
-
-    usuario_id = cadastrar_usuario(conexao, nome, email, senha)
-    if usuario_id:
-        inserir_metas_padrao(conexao, usuario_id)
-
-    conexao.close()
+    UI.pausar()
+    UI.limpar()
