@@ -1,35 +1,40 @@
-"""Mostrar perguntas, Receber respostas e Calcular pontuação"""
+"""Tela do quiz de sustentabilidade."""
 
-from services.quiz_service import perguntas
-from utils.utilidades import limpar_tela
+from services.quiz_service import QuizService, PONTOS_POR_ACERTO
+from utils.utilidades import UI
 
-def tela_quiz():
-    perguntas
+
+def tela_quiz() -> None:
+    """
+    Exibe o quiz de sustentabilidade, permitindo que o usuário responda perguntas e acompanhe sua pontuação.
+    """
+    service = QuizService()
+    perguntas = service.get_perguntas()
     pontuacao = 0
 
-    print('=' * 40)
-    print('Quiz de Sustentável')
-    print('=' * 40)
+    UI.cabecalho("Quiz de Sustentabilidade 🌱")
 
-    for numero_da_pergunta, pergunta in enumerate(perguntas, start=1):
-        print(f"\nPergunta {numero_da_pergunta}: {pergunta['pergunta']}")
-        for opcao in pergunta['opcoes']:
-            print(opcao)
+    for numero, pergunta in enumerate(perguntas, start=1):
+        pergunta.exibir(numero)
 
-        resposta_usuario = input('Digite a letra da resposta correta ou digite "MENU" para voltar ao menu principal: ').strip().upper()
+        resposta = input(
+            'Sua resposta (ou "MENU" para sair): '
+        ).strip().upper()
 
-        if resposta_usuario == 'MENU':
-            limpar_tela()
+        if resposta == "MENU":
+            UI.limpar()
             return
-        elif resposta_usuario == pergunta['resposta']:
-            print('✅ Resposta correta!')
-            pontuacao += 5
-        else:
-            print(f'❌ Resposta incorreta! A resposta correta é: {pergunta["resposta"]}')
-        
-        input('Pressione Enter para continuar para a próxima pergunta...')
-        limpar_tela()
 
-    print(f'PARABÉNS!🎉 Sua pontuação final é: {pontuacao}')
-    input('Pressione Enter para voltar ao menu principal:')
-    limpar_tela()
+        if pergunta.verificar_resposta(resposta):
+            UI.sucesso("Resposta correta!")
+            pontuacao += PONTOS_POR_ACERTO
+        else:
+            UI.erro(f"Incorreta! A resposta certa era: {pergunta.resposta_correta}")
+
+        UI.pausar("Pressione Enter para a próxima pergunta...")
+        UI.limpar()
+
+    print(f"\n🎉 Pontuação final: {pontuacao} pontos")
+    print(service.calcular_nivel(pontuacao))
+    UI.pausar("Pressione Enter para voltar ao menu:")
+    UI.limpar()
