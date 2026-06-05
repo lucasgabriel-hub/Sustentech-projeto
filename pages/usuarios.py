@@ -1,40 +1,85 @@
-"""Atualizar dados, Listar usuários e Perfil"""
+"""Tela de gerenciamento de usuários."""
 
-from services.usuario_service import atualizar_dados_pessoais
-from services.usuario_service import listar_usuarios
-from services.usuario_service import deletar_conta
-from utils.utilidades import limpar_tela
-
-def tela_usuarios(conexao, usuario_id):
-    print("="*40)
-    print('👥 Gerenciamento de Usuários 👥')
-    print("="*40)
-
-    print('1. Atualizar Dados Pessoais')
-    print('2. Listar Usuários Cadastrados')
-    print('3. deletar minha conta')
-    print('4. Voltar ao Menu autenticação')
-    print("-"*40)
-
-    escolha_do_usuario = input('Escolha uma opção: ')
-    if escolha_do_usuario == '1':
-        limpar_tela()
-        atualizar_dados_pessoais(conexao, usuario_id)
-        
-    elif escolha_do_usuario == '2':
-        limpar_tela()
-        listar_usuarios(conexao)
-        
-    elif escolha_do_usuario == '3':
-        limpar_tela()
-        deletar_conta(conexao, usuario_id)
-        
-    elif escolha_do_usuario == '4':
-        input('pressione enter para voltar ao menu: ')
-        limpar_tela()
-        return
+from services.usuario_service import UsuarioService
+from models.usuario import Usuario
+from utils.utilidades import UI
 
 
+def tela_usuarios(conexao, usuario_id: int) -> bool:
+    """
+    Retorna True se a conta foi deletada (forçando logout),
+    False caso contrário.
+    """
+    service = UsuarioService(conexao)
+
+    UI.cabecalho("👥 Gerenciamento de Usuários")
+    print("1. Atualizar dados pessoais")
+    print("2. Listar usuários cadastrados")
+    print("3. Deletar minha conta")
+    print("4. Voltar ao menu principal")
+    UI.separador()
+
+    opcao = input("Escolha: ").strip()
+
+    if opcao == "1":
+        UI.limpar()
+        return _atualizar(service, usuario_id)
+
+    elif opcao == "2":
+        UI.limpar()
+        _listar(service)
+
+    elif opcao == "3":
+        UI.limpar()
+        return _deletar(service, usuario_id)
+
+    elif opcao == "4":
+        UI.limpar()
+
+    return False
 
 
-    
+def _atualizar(service: UsuarioService, usuario_id: int) -> bool:
+    """
+    Permite ao usuário atualizar seus dados pessoais.
+    Retorna False, pois atualizar não força logout.
+    """
+    UI.cabecalho("Atualizar Dados Pessoais")
+    nome  = input("Novo nome: ").strip()
+    email = input("Novo email: ").strip()
+    senha = input("Nova senha: ").strip()
+
+    sucesso, erros = service.atualizar(usuario_id, nome, email, senha)
+    if sucesso:
+        UI.sucesso("Dados atualizados com sucesso!")
+    else:
+        for erro in erros:
+            UI.erro(erro)
+
+    UI.pausar()
+    UI.limpar()
+    return False
+
+
+def _listar(service: UsuarioService) -> None:
+    UI.cabecalho("Usuários Cadastrados")
+    for u in service.listar():
+        print(f"  ID: {u.id} | {u.nome} | {u.email}")
+    UI.pausar()
+    UI.limpar()
+
+
+def _deletar(service: UsuarioService, usuario_id: int) -> bool:
+    """
+    Permite ao usuário deletar sua conta.
+    Retorna True se a conta for deletada, False caso contrário.
+    """
+    if UI.confirmar("Tem certeza que deseja deletar sua conta?"):
+        service.deletar(usuario_id)
+        UI.sucesso("Conta deletada.")
+        return True  # sinaliza logout ao menu principal.
+
+    UI.erro("Operação cancelada.")
+    UI.pausar()
+    UI.limpar()
+    return False
