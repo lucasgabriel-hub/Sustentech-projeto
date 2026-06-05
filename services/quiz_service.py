@@ -94,3 +94,24 @@ class QuizService:
             resposta_correta="B",
         ),
     ]
+
+    def get_perguntas(self) -> list[Pergunta]:
+        """
+        Retorna a lista de perguntas do quiz.
+        Para adicionar novas perguntas, edite apenas _BANCO_PERGUNTAS.
+        """
+        return self._BANCO_PERGUNTAS
+
+    def calcular_nivel(self, pontuacao: int) -> str:
+        total_possivel = len(self._BANCO_PERGUNTAS) * PONTOS_POR_ACERTO
+        percentual = pontuacao / total_possivel if total_possivel > 0 else 0
+
+        """
+        Calcula o nível do usuário com base na pontuação.
+        """
+        if percentual >= 0.8:
+            return "🏆 Especialista em Sustentabilidade!"
+        elif percentual >= 0.5:
+            return "🌱 Em desenvolvimento — continue assim!"
+        else:
+            return "🚨 Iniciante — explore as dicas e tente novamente!"
