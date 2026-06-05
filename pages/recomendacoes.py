@@ -1,80 +1,80 @@
-"""Recomendar ações e Sugerir melhorias"""
+"""
+Tela de recomendações sustentáveis personalizadas.
+"""
 
-from utils.utilidades import limpar_tela
-from utils.utilidades import confirmarsaidarecomendacao
+from utils.utilidades import UI
 
-def calcular_pontuacao(resposta):
-    if resposta == '1':
-        return 2
-    elif resposta == '2':
-        return 1
-    else:
-        return 0
+"""
+Questionário para avaliar os hábitos de consumo do usuário e oferecer dicas personalizadas.
+Cada pergunta tem opções de resposta que atribuem pontos para calcular um score final.
+"""
 
-def tela_recomendacoes():
-   while True:
-    print("="*40)
-    print('🌱 Recomendações Sustentáveis Personalizadas 🌱')
-    print("="*40)
+_PERGUNTAS = [
+    {
+        "enunciado": "Você costuma desligar aparelhos da tomada quando não está usando?",
+        "opcoes": ["1 - Sempre", "2 - Às vezes", "3 - Nunca"],
+    },
+    {
+        "enunciado": "Com que frequência você troca de celular?",
+        "opcoes": ["1 - Só quando quebra", "2 - A cada alguns anos", "3 - Todo ano"],
+    },
+    {
+        "enunciado": "Você reutiliza ou recicla eletrônicos antigos?",
+        "opcoes": ["1 - Sim", "2 - Às vezes", "3 - Não"],
+    },
+]
 
-    score = 0
+_PONTOS_POR_OPCAO = {"1": 2, "2": 1, "3": 0}
 
-    # Pergunta 1
-    print('1. Você costuma desligar aparelhos da tomada quando não está usando?')
-    print('1 - Sempre')
-    print('2 - Às vezes')
-    print('3 - Nunca')
-    r1 = input('Resposta: ')
+"""
+Tela de recomendações sustentáveis personalizadas.
+Permite que o usuário responda a um questionário sobre seus hábitos de consumo e oferece dicas personalizadas com base no resultado.
+"""
 
-    score += calcular_pontuacao(r1)
-    if confirmarsaidarecomendacao():
-        limpar_tela()
-        break
-    limpar_tela()
+def tela_recomendacoes() -> None:
+    while True:
+        UI.cabecalho("🌱 Recomendações Sustentáveis Personalizadas 🌱")
+        score = 0
+        cancelado = False
 
-    # Pergunta 2
-    print('2. Com que frequência você troca de celular?')
-    print('1 - Só quando quebra')
-    print('2 - A cada alguns anos')
-    print('3 - Todo ano')
-    r2 = input('Resposta: ')
+        for i, pergunta in enumerate(_PERGUNTAS, start=1):
+            print(f"\n{i}. {pergunta['enunciado']}")
+            for opcao in pergunta["opcoes"]:
+                print(f"   {opcao}")
 
-    score += calcular_pontuacao(r2)
-    if confirmarsaidarecomendacao():
-        limpar_tela()
-        break
-    limpar_tela()
+            resposta = input("Resposta: ").strip()
+            score += _PONTOS_POR_OPCAO.get(resposta, 0)
 
-    # Pergunta 3
-    print('\n3. Você reutiliza ou recicla eletrônicos antigos?')
-    print('1 - Sim')
-    print('2 - Às vezes')
-    print('3 - Não')
-    r3 = input('Resposta: ')
+            if UI.confirmar("Deseja sair das recomendações?"):
+                cancelado = True
+                UI.limpar()
+                break
+            UI.limpar()
 
-    score += calcular_pontuacao(r3)
-    if confirmarsaidarecomendacao():
-        limpar_tela()
-        break
+        if cancelado:
+            break
 
-    # Resultado
-    limpar_tela()
-    print('📊 Seu resultado:')
-    
+        _exibir_resultado(score)
+        UI.pausar("Pressione Enter para voltar ao menu:")
+        UI.limpar()
+        break  # encerra após um ciclo completo
+
+"""
+Exibe o resultado do questionário e oferece recomendações personalizadas com base na pontuação total.
+"""
+
+def _exibir_resultado(score: int) -> None:
+    UI.cabecalho("📊 Seu Resultado")
+
     if score >= 5:
-        print('Parabéns! Você já tem hábitos sustentáveis!')
-        print('💡 Continue assim e tente influenciar outras pessoas!')
-    
+        print("🏆 Parabéns! Você já tem ótimos hábitos sustentáveis!")
+        print("💡 Continue assim e inspire outras pessoas!")
     elif score >= 3:
-        print('Você está no caminho certo !!!')
-        print('💡 Dica: tente melhorar pequenos hábitos no dia a dia.')
-    
+        print("🌱 Você está no caminho certo!")
+        print("💡 Dica: pequenas melhorias no dia a dia fazem grande diferença.")
     else:
-        print('Você pode melhorar bastante 🚨')
-        print('💡 Recomendações:')
-        print('- Desligue aparelhos da tomada')
-        print('- Evite trocar de celular com frequência')
-        print('- Procure reciclar eletrônicos')
-
-    input('Pressione Enter para voltar ao menu:')
-    limpar_tela()
+        print("🚨 Você pode melhorar bastante!")
+        print("💡 Recomendações:")
+        print("   • Desligue aparelhos da tomada")
+        print("   • Evite trocar de celular com frequência")
+        print("   • Procure reciclar eletrônicos")
