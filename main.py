@@ -1,46 +1,19 @@
-"""Iniciar o programa, Chamar o menu principal e Controlar o fluxo geral"""
+"""
+Ponto de entrada da aplicação Sustentech.
+"""
 
-from database.connection import conectar_banco
-from database.connection import criar_tabela_usuarios
-from core.menu import menu_principal
+from database.connection import conectar_banco, inicializar_banco
 from pages.auth import menu_login_cadastro
-from database.connection import conectar_banco
-from database.connection import criar_tabela_metas
-from pages.metas import tela_metas
-import sys
-from pathlib import Path
+from pages.menu import menu_principal
 
-BASE_DIR = Path(__file__).resolve().parent
-sys.path.append(str(BASE_DIR))
-
-
-"""
-Função para iniciar o banco de dados, criando a tabela de usuários caso ela ainda não exista.
-"""
-
-def iniciar_banco():
-
+def main() -> None:
     conexao = conectar_banco()
+    inicializar_banco(conexao)
 
-    criar_tabela_usuarios(conexao)
-    criar_tabela_metas(conexao)
-    return conexao
-
-
-"""
-função principal do programa, responsável por iniciar o banco de dados e chamar o menu de login/cadastro.
-"""
-
-def main():
-    conexao = iniciar_banco()
-
-    usuario = menu_login_cadastro(conexao)
-    if usuario:
-        usuario_id = usuario["id"]
+    # Loop externo: permite que o usuário faça logout e entre com outra conta
+    while True:
+        usuario = menu_login_cadastro(conexao)
         menu_principal(conexao, usuario)
-    conexao.close()
 
 if __name__ == "__main__":
     main()
-
-
