@@ -77,22 +77,18 @@ class UI:
                 return False
             print("Resposta inválida. Digite 'sim' ou 'não'.")
 
-def limpar_tela():
-    #print("\n"* 50")
-    os.system('cls' if os.name == 'nt' else 'clear')
+"""
+Funções auxiliares específicas para o terminal, usando a classe UI.
+"""
 
-def tamanho(texto):
-    if len(texto) < 3 or len(texto) > 20:
-        return False
-    return True
+def limpar_tela() -> None:
+    UI.limpar()
 
-def confirmarsaidarecomendacao():
-    while True:
-        resposta = input('Deseja sair da seção de recomendações? ("sim" ou "não"): ')
-        if resposta == 'sim':
-            return True
-        elif resposta == 'não':
-            return False
-        else:
-            print('Resposta invalida. Por favor, responda com "sim" ou "não".')
-    
+
+def tamanho(texto: str) -> bool:
+    """Valida tamanho mínimo/máximo do nome do usuário."""
+    return 3 <= len(texto.strip()) <= 20
+
+
+def confirmarsaidarecomendacao() -> bool:
+    return UI.confirmar("Deseja sair da seção de recomendações?")
