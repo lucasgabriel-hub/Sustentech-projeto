@@ -12,3 +12,10 @@ class TipoMeta(str, Enum):
     DIARIA = "diaria"
     SEMANAL = "semanal"
     MENSAL = "mensal"
+
+class StatusMeta(str, Enum):
+    """
+    Garante que só status válidos sejam usados no sistema.
+    """
+    PENDENTE = "pendente"
+    CONCLUIDA = "concluída"
