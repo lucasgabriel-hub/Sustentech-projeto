@@ -43,3 +43,30 @@ class Usuario:
 
     def __str__(self) -> str:
         return f"Usuario(id={self.id}, nome={self.nome!r}, email={self.email!r})"
+
+@dataclass
+class UsuarioCadastro:
+    """
+    DTO (Data Transfer Object) usado apenas durante o fluxo de cadastro,
+    antes de o registro ser persistido no banco.
+    """
+
+    nome: str
+    email: str
+    senha: str
+
+    def is_valido(self) -> tuple[bool, list[str]]:
+        """
+        Retorna (valido, lista_de_erros).
+        Facilita exibir todas as mensagens de erro de uma vez.
+        """
+        erros: list[str] = []
+
+        if not Usuario.validar_nome(self.nome):
+            erros.append("Nome deve ter entre 3 e 20 caracteres.")
+        if not Usuario.validar_email(self.email):
+            erros.append("Email deve terminar com @gmail.com.")
+        if not Usuario.validar_senha(self.senha):
+            erros.append("Senha deve ter pelo menos 6 caracteres.")
+
+        return (len(erros) == 0, erros)
