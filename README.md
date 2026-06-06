@@ -42,3 +42,12 @@ Como Usar:
   
 *Links dos projetos*
 
+## 📂 Release 1.0
+
+- 📊 [Fluxograma](./1.0%20release/Fluxograma.pdf)
+- 📄 [Funcionalidades](./1.0%20release/funcionalidades.pdf)
+
+## 📂 Release 2.0
+
+- 📊 [Fluxograma](./2.0%20release/2.0fluxograma.drawio.pdf)
+- 📄 [Funcionalidades](./2.0%20release/2.0Funcionalidades.pdf)
