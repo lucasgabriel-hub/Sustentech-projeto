@@ -33,6 +33,12 @@ Este projeto foi construído por:
 
 *Projeto acadêmico desenvolvido para a Universidade Federal Rural de Pernambuco (UFRPE).*
 
+Como Usar:
+- É necessários que coloque no terminal alguns comandos.
+- pip install requests (Para ativar o ambiente virtual)
+- pip install newsapi-python (Para funcionar a api de notícias do sistema)
+- Dentro da pasta configurations no arquivo config.py, há um link para cadastra sua conta na api Newsapi (usada numa das funcionalidades), ao se cadastrar,
+  sera fornecida uma chave API que serve para substituir "SUA_CHAVE_AQUI", somente assim a funcionalidade funcionará.
+  
 *Links dos projetos*
-[📄 Ver Fluxograma do Projeto](https://github.com/lucasgabriel-hub/Sustentech-projeto/blob/main/Fluxograma%20Sustentech.pdf)
-[📄 Ver Funcionalidades do Sistema](https://github.com/lucasgabriel-hub/Sustentech-projeto/blob/main/sustentech%20funcionalidades.pdf)
+
