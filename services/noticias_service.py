@@ -1,6 +1,5 @@
 """
 Serviço de notícias ambientais usando a NewsAPI.
- 
 Documentação da NewsAPI: https://newsapi.org/docs
 Para obter uma chave gratuita: https://newsapi.org/register
  
