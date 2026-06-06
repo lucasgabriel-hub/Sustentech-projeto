@@ -30,7 +30,7 @@ def menu_principal(conexao, usuario: Usuario) -> None:
         print("5. Usuários")
         print("6. Loja")
         print("7. Rotas de Descarte")
-        print("8. 📰 Notícias Ambientais")    # ← NOVA OPÇÃO
+        print("8. Notícias Ambientais")    
         print("9. Sair")
         UI.separador()
  
@@ -43,7 +43,7 @@ def menu_principal(conexao, usuario: Usuario) -> None:
             "4": lambda: tela_recomendacoes(),
             "6": lambda: tela_loja(conexao, usuario.id),
             "7": lambda: rotas_descarte(),
-            "8": lambda: tela_noticias(),       # ← NOVA AÇÃO
+            "8": lambda: tela_noticias(),       
         }
  
         if opcao in acoes:
