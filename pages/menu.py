@@ -1,5 +1,5 @@
 """Menu principal do Sustentech."""
-
+ 
 from models.usuario import Usuario
 from database.connection import conectar_banco
 from pages.Dicas import tela_dicas
@@ -9,15 +9,16 @@ from pages.usuarios import tela_usuarios
 from pages.quiz import tela_quiz
 from pages.mapadescarte import rotas_descarte
 from pages.loja import tela_loja
+from pages.noticias import tela_noticias          # ← NOVA IMPORTAÇÃO
 from utils.utilidades import UI
-
-
+ 
+ 
 def menu_principal(conexao, usuario: Usuario) -> None:
     """
     Exibe o menu principal do Sustentech.
     """
     conexao = conectar_banco()
-
+ 
     while True:
         UI.cabecalho("Menu Principal")
         print(usuario.saudacao())
@@ -29,11 +30,12 @@ def menu_principal(conexao, usuario: Usuario) -> None:
         print("5. Usuários")
         print("6. Loja")
         print("7. Rotas de Descarte")
-        print("8. Sair")
+        print("8. 📰 Notícias Ambientais")    # ← NOVA OPÇÃO
+        print("9. Sair")
         UI.separador()
-
+ 
         opcao = input("Escolha uma opção: ").strip()
-
+ 
         acoes = {
             "1": lambda: tela_dicas(),
             "2": lambda: tela_metas(conexao, usuario.id),
@@ -41,12 +43,13 @@ def menu_principal(conexao, usuario: Usuario) -> None:
             "4": lambda: tela_recomendacoes(),
             "6": lambda: tela_loja(conexao, usuario.id),
             "7": lambda: rotas_descarte(),
+            "8": lambda: tela_noticias(),       # ← NOVA AÇÃO
         }
-
+ 
         if opcao in acoes:
             UI.limpar()
             acoes[opcao]()
-
+ 
         elif opcao == "5":
             UI.limpar()
             conta_deletada = tela_usuarios(conexao, usuario.id)
@@ -54,12 +57,13 @@ def menu_principal(conexao, usuario: Usuario) -> None:
                 print("Até logo! Sua conta foi removida. 🌱")
                 conexao.close()
                 return
-
-        elif opcao == "8":
+ 
+        elif opcao == "9":
             print("Saindo... Até logo! 🌱")
             conexao.close()
             break
-
+ 
         else:
             UI.erro("Opção inválida.")
             UI.limpar()
+ 

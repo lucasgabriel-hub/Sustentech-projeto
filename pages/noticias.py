@@ -22,7 +22,7 @@ def tela_noticias() -> None:
     service = NoticiasService()
  
     while True:
-        UI.cabecalho("📰 Notícias Ambientais")
+        UI.cabecalho("Notícias Ambientais")
         print("1. Carregar últimas notícias (padrão)")
         print("2. Buscar por palavra-chave")
         print("3. Voltar ao menu principal")
