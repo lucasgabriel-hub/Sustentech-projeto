@@ -9,7 +9,7 @@ from pages.usuarios import tela_usuarios
 from pages.quiz import tela_quiz
 from pages.mapadescarte import rotas_descarte
 from pages.loja import tela_loja
-from pages.noticias import tela_noticias          # ← NOVA IMPORTAÇÃO
+from pages.noticias import tela_noticias
 from utils.utilidades import UI
  
  
