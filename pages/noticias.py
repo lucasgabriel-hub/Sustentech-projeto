@@ -61,7 +61,7 @@ def _exibir_noticias(service: NoticiasService, query: str | None) -> None:
     Carrega e exibe a lista de notícias. Permite ao usuário selecionar
     uma notícia para ver os detalhes completos.
     """
-    print("🔎 Buscando notícias... aguarde.\n")
+    print("🔎 Buscando notícias... aguarde.")
  
     kwargs: dict = {"quantidade": _QUANTIDADE_NOTICIAS}
     if query:

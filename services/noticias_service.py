@@ -67,8 +67,8 @@ class NoticiasService:
         """
         if not self._api_key or self._api_key == "SUA_CHAVE_AQUI":
             return [], (
-                "Chave da NewsAPI não configurada.\n"
-                "Acesse https://newsapi.org/register para obter uma chave gratuita\n"
+                "Chave da NewsAPI não configurada."
+                "Acesse https://newsapi.org/register para obter uma chave gratuita"
                 "e adicione-a em configurations/config.py como NEWS_API_KEY."
             )
  
