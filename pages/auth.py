@@ -3,6 +3,7 @@
 from models.usuario import Usuario, UsuarioCadastro
 from services.auth_service import AuthService
 from utils.utilidades import UI
+from getpass import getpass
 
 
 def menu_login_cadastro(conexao) -> Usuario:
@@ -45,7 +46,7 @@ def _tela_login(service: AuthService):
     """
     UI.cabecalho("Login")
     email = input("Email: ").strip()
-    senha = input("Senha: ").strip()
+    senha = getpass("Senha: ")
     UI.separador()
 
     usuario = service.login(email, senha)
@@ -67,7 +68,7 @@ def _tela_cadastro(service: AuthService) -> None:
 
     nome  = input("Nome: ").strip()
     email = input("Email: ").strip()
-    senha = input("Senha: ").strip()
+    senha = getpass("Senha: ").strip()
     UI.separador()
 
     dto = UsuarioCadastro(nome=nome, email=email, senha=senha)
